@@ -5,7 +5,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.LongUnaryOperator;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -56,12 +55,12 @@ public class Main {
 
         // Solution for alphabetical order
         // Solution 1
-        /*Stream<String> sorted1 = stringList.stream().distinct().sorted(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.compareTo(o2);
-            }
-        });*/
+//        Stream<String> sorted1 = stringList.stream().distinct().sorted(new Comparator<String>() {
+//            @Override
+//            public int compare(String o1, String o2) {
+//                return o1.compareTo(o2);
+//            }
+//        });
 
         // Solution 2
         //Stream<String> sorted1 = stringList.stream().distinct().sorted(Comparator.naturalOrder());
@@ -73,12 +72,12 @@ public class Main {
 
         // Solution for reverse alphabetical order
         // Solution 1
-       /* Stream<String> sorted2 = stringList.stream().distinct().sorted(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o2.compareTo(o1);
-            }
-        });*/
+//        Stream<String> sorted2 = stringList.stream().distinct().sorted(new Comparator<String>() {
+//            @Override
+//            public int compare(String o1, String o2) {
+//                return o2.compareTo(o1);
+//            }
+//        });
 
         // Solution 2
         List<String> list1 = stringList.stream().distinct().sorted(Comparator.reverseOrder()).toList();
@@ -88,6 +87,7 @@ public class Main {
 
         //stringList.sort(Comparator.reverseOrder());
         System.out.println("reverse alphabetical sorted order : "+list1);
+        System.out.println(ele);
         System.out.println("**********************END OF 5******************");
 
         // 6. Write a Java program to implement a lambda expression to find the average of a list of doubles.
@@ -167,7 +167,7 @@ public class Main {
         // Concatenate the strings using StringJoiner and Java 8 stream
         StringJoiner joiner = new StringJoiner("");
         joiner.add("str1").add("str2");
-        System.out.println(joiner.toString());
+        System.out.println(joiner);
         System.out.println("**********************END OF 10******************");
 
         // 11. Write a Java program to implement a lambda expression to find the maximum and minimum values in a list of integers.
@@ -181,8 +181,11 @@ public class Main {
         Integer max2 = integers.stream().max(Integer::compareTo).orElse(0);
         Integer min2 = integers.stream().min(Integer::compareTo).orElse(0);
 
-        System.out.println("max : "+max2);
-        System.out.println("min : "+min2);
+        System.out.println("max1 : "+max1);
+        System.out.println("min1 : "+min1);
+
+        System.out.println("max2 : "+max2);
+        System.out.println("min2 : "+min2);
         System.out.println("**********************END OF 11******************");
 
         // 12. Write a Java program to create a lambda expression to multiply and sum all elements in a list of integers.
@@ -208,10 +211,7 @@ public class Main {
 
         // 14. Write a Java program to implement a lambda expression to check if a given string is a palindrome.
 
-        Predicate<String> predicate1 = str -> {
-            return new StringBuilder(str).reverse().toString().equals(str);
-        };
-
+        Predicate<String> predicate1 = str -> new StringBuilder(str).reverse().toString().equals(str);
         System.out.println("Is abc palindrome : "+predicate1.test("abc"));
         System.out.println("Is abc palindrome : "+predicate1.test("aba"));
         System.out.println("Is abc palindrome : "+predicate1.test("A"));
@@ -232,6 +232,82 @@ public class Main {
         System.out.println("evenSquaredSum2 : "+ evenSquaredSum2);
         System.out.println("oddSquaredSum2 : "+ oddSquaredSum2);
         System.out.println("**********************END OF 15******************");
+
+        // 16. Write a Java program to implement a lambda expression to check if a list of strings contains a specific word.
+
+        List<String> words16 = Arrays.asList("Red", "Green", "Blue", "Orange", "Black");
+        String searchWord = "red";
+        boolean matchedWord = words16.stream().anyMatch(w -> w.equals(searchWord));
+        System.out.println(matchedWord);
+        System.out.println("**********************END OF 16******************");
+
+        // 17. Write a Java program to implement a lambda expression to find the length of the longest and smallest string in a list.
+
+        List<String> list17 = Arrays.asList("Red", "Green", "Blue", "Orange", "Black");
+        int minLength = list17.stream().mapToInt(String::length).min().orElse(0);
+        System.out.println("minLength : "+minLength);
+        int maxLength = list17.stream().mapToInt(String::length).max().orElse(0);
+        System.out.println("maxLength : "+maxLength);
+        System.out.println("**********************END OF 17******************");
+
+        // 18. Write a Java program to implement a lambda expression to check if a given number is a perfect square.
+
+        Predicate<Integer> isSquare = n ->
+        {
+            int sqrt = (int) Math.sqrt(n);
+            return sqrt * sqrt == n;
+        };
+        System.out.println("Is number a perfect square : "+isSquare.test(4));
+        System.out.println("Is number a perfect square : "+isSquare.test(3));
+        System.out.println("Is number a perfect square : "+isSquare.test(0));
+        System.out.println("Is number a perfect square : "+isSquare.test(1));
+        System.out.println("**********************END OF 18******************");
+
+        // 19. Write a Java program to implement a lambda expression to find the second largest and smallest element in an array.
+
+        List<String> list19 = Arrays.asList("Red", "Green", "Blue", "Orange", "Black");
+        // Solution 1
+        String min19 = list19.stream().sorted(Comparator.comparingInt(String::length)).skip(1).findFirst().orElse(null);
+        System.out.println("min19 : "+min19);
+        String max19 = list19.stream().sorted((s1, s2) -> s2.length() - s1.length()).skip(1).findFirst().orElse(null);
+        System.out.println("max19 : "+max19);
+        // Solution 2
+        String max = list19.stream().sorted(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                if (o1.length() < o2.length())
+                    return 1;
+                else if (o1.length() > o2.length())
+                    return -1;
+                return 0;
+            }
+        }).skip(1).findFirst().orElse(null);
+        System.out.println("max : "+max);
+        System.out.println("**********************END OF 19******************");
+
+        // 20. Write a Java program to implement a lambda expression to sort a list of objects based on a specific attribute.
+
+        List<Employee> employees = Arrays.asList(
+                new Employee("A", 22, 1000),
+                new Employee("B", 28, 3000),
+                new Employee("C", 25, 2000),
+                new Employee("C", 25, 7000),
+                new Employee("C", 25, 6000)
+        );
+
+        // Sorting based on employee's salary.
+        employees.sort(Comparator.comparing(Employee::getSalary));
+        System.out.println(employees);
+
+        // Find out second-highest salary.
+        double salary1 = Objects.requireNonNull(employees.stream().distinct().sorted(Comparator.comparing(Employee::getSalary).reversed()).skip(1).findFirst().orElse(null)).getSalary();
+        double salary2 = employees.stream().mapToDouble(Employee::getSalary).distinct().sorted().skip(1).findFirst().orElse(0);
+        double salary3 = employees.stream().mapToDouble(Employee::getSalary).distinct().boxed().sorted(Comparator.reverseOrder()).skip(1).findFirst().orElse(0.0);
+        System.out.println("second highest salary1 : "+salary1);
+        System.out.println("second highest salary2 : "+salary2);
+        System.out.println("second highest salary3 : "+salary3);
+        System.out.println("**********************END OF 20******************");
+
 
 
 
