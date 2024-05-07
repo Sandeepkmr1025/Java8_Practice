@@ -5,6 +5,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.LongUnaryOperator;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -272,15 +273,12 @@ public class Main {
         String max19 = list19.stream().sorted((s1, s2) -> s2.length() - s1.length()).skip(1).findFirst().orElse(null);
         System.out.println("max19 : "+max19);
         // Solution 2
-        String max = list19.stream().sorted(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                if (o1.length() < o2.length())
-                    return 1;
-                else if (o1.length() > o2.length())
-                    return -1;
-                return 0;
-            }
+        String max = list19.stream().sorted((o1, o2) -> {
+            if (o1.length() < o2.length())
+                return 1;
+            else if (o1.length() > o2.length())
+                return -1;
+            return 0;
         }).skip(1).findFirst().orElse(null);
         System.out.println("max : "+max);
         System.out.println("**********************END OF 19******************");
@@ -308,12 +306,25 @@ public class Main {
         System.out.println("second highest salary3 : "+salary3);
         System.out.println("**********************END OF 20******************");
 
-
-
-
+        // 21 Write a Java program to implement a lambda expression to calculate the sum of all prime numbers in a given range.
+        int num1 = 1;
+        int num2 = 10;
+        int sumOfPrimeNumbers = IntStream.rangeClosed(num1, num2).filter(Main::isPrime).sum();
+        System.out.println("Sum of all the prime number in between "+ num1 +" and "+num2 + " is : " + sumOfPrimeNumbers);
+        System.out.println("**********************END OF 21******************");
     }
 
-
-
+    private static boolean isPrime(int num) {
+        if (num < 2)
+        {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
