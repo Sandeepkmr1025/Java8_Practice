@@ -312,7 +312,52 @@ public class Main {
         int sumOfPrimeNumbers = IntStream.rangeClosed(num1, num2).filter(Main::isPrime).sum();
         System.out.println("Sum of all the prime number in between "+ num1 +" and "+num2 + " is : " + sumOfPrimeNumbers);
         System.out.println("**********************END OF 21******************");
+
+        // 22. Write a Java program to implement a lambda expression to check if a list of strings are all uppercase or all lowercase or mixed case.
+        List<String> list22 = Arrays.asList("RED", "GrEen", "blue", "Orange", "BlacK");
+        List<String> list23 = Arrays.asList("RED", "GREEN", "BLUE", "ORANGE", "BLACK");
+        List<String> list24 = Arrays.asList("red", "green", "blue", "orange", "black");
+
+        checkCase2(list22);// Mixed case
+        checkCase2(list23);// Upper case
+        checkCase2(list24);// Lower case
+        System.out.println("**********************END OF 22******************");
     }
+
+    // 22. Solution 1
+    private static void checkCase1(List<String> list) {
+        boolean isAllUpperCase = list.stream().allMatch(s -> s.equals(s.toUpperCase()));
+        boolean isAllLowerCase = list.stream().allMatch(s -> s.equals(s.toLowerCase()));
+        if (isAllUpperCase) {
+            System.out.println("All the elements are in uppercase");
+        } else if (isAllLowerCase) {
+            System.out.println("All the elements are in lowercase");
+        } else {
+            System.out.println("All the elements are in mixed case");
+        }
+    }
+
+    // 22. Solution 2
+    private static void checkCase2(List<String> list) {
+        long upperCaseCount = list.stream().filter(s -> s.equals(s.toUpperCase())).count();
+        long lowerCaseCount = list.stream().filter(s -> s.equals(s.toLowerCase())).count();
+        if (upperCaseCount == list.size()) {
+            System.out.println("All the elements are in uppercase");
+        } else if (lowerCaseCount == list.size()) {
+            System.out.println("All the elements are in lowercase");
+        } else {
+            System.out.println("All the elements are in mixed case");
+        }
+
+        // Java 13 switch expression.
+//        return switch {
+//            upperCaseCount == strings.size() -> "All strings are in uppercase";
+//            lowerCaseCount == strings.size() -> "All strings are in lowercase";
+//            default -> "Strings are in mixed case";
+//        };
+    }
+
+
 
     private static boolean isPrime(int num) {
         if (num < 2)
