@@ -314,7 +314,7 @@ public class Main {
         System.out.println("**********************END OF 21******************");
 
         // 22. Write a Java program to implement a lambda expression to check if a list of strings are all uppercase or all lowercase or mixed case.
-        List<String> list22 = Arrays.asList("RED", "GrEen", "blue", "Orange", "BlacK");
+        List<String> list22 = Arrays.asList("RED", "GrEen", "blue", "Orange", "Black");
         List<String> list23 = Arrays.asList("RED", "GREEN", "BLUE", "ORANGE", "BLACK");
         List<String> list24 = Arrays.asList("red", "green", "blue", "orange", "black");
 
@@ -322,6 +322,12 @@ public class Main {
         checkCase2(list23);// Upper case
         checkCase2(list24);// Lower case
         System.out.println("**********************END OF 22******************");
+
+        // 23. Write a Java program to implement a lambda expression to find the average length of strings in a list.
+        List<String> listOfStrings = Arrays.asList("Red", "Green", "Blue", "Orange", "Black");
+        double avgOfStrings = listOfStrings.stream().mapToInt(String::length).average().orElse(0.0);
+        System.out.println("Avg of all the Strings: " + avgOfStrings);
+        System.out.println("**********************END OF 23******************");
     }
 
     // 22. Solution 1
@@ -355,8 +361,8 @@ public class Main {
 //            lowerCaseCount == strings.size() -> "All strings are in lowercase";
 //            default -> "Strings are in mixed case";
 //        };
-    }
 
+    }
 
 
     private static boolean isPrime(int num) {
