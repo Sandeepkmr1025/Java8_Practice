@@ -141,8 +141,11 @@ public class Main {
             if (num<=1) {
                 return false;
             }
+            if (num == 2) {
+                return true;
+            }
 
-            for (int i=2; i<=Math.sqrt(num); i++ )
+            for (int i=3; i<=Math.sqrt(num); i++ )
             {
                 if(num%i==0)
                 {
